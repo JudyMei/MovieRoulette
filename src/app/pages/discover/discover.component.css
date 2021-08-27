@@ -1,0 +1,15 @@
+.genreList{
+    padding-left: 5px;
+}
+ul.providers li{
+    display: inline;
+    margin-right:10px;
+}
+
+ul.providers{
+    padding-left: 0;
+}
+
+.poster{
+    height: 100%;
+}

@@ -1,5 +1,43 @@
-<button type="button" class="btn btn-danger" (click)="getMovie()"> Click Here!</button>
-<div *ngIf="showMovie">
-    <p> {{movieItem.title}} </p>
-    <p> {{movieItem.overview}} </p>
+<div class="container">
+    <button type="button" class="btn btn-danger" (click)="getMovie()"> Click Here!</button>
+    <div *ngIf="showMovie">
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src={{getPosterPath()}} class="img-fluid rounded-start poster" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{movieItem.title}}</h5>
+                        <p class="card-text">{{movieItem.overview}}</p>
+                        <p class="card-text">Genres</p>
+                        <ul>
+                            <li *ngFor="let item of movieItem.genre_ids">{{genres.get(item)}}</li>
+                        </ul>
+                        <p class="card-text">Where To Watch</p>
+                        <div *ngIf="movieProviders.rent">
+                            <label>Rent</label>
+                            <ul class="providers">
+                                <li *ngFor="let obj of movieProviders.rent"> <img src={{getLogoPath(obj.logo_path)}} alt="..." class="img-thumbnail"> </li>
+                            </ul>
+                        </div>
+                        <div *ngIf="movieProviders.buy">
+                            <label>Buy</label>
+                            <ul class="providers">
+                                <li *ngFor="let obj of movieProviders.buy"> <img src={{getLogoPath(obj.logo_path)}} alt="..." class="img-thumbnail"> </li>
+                            </ul>
+                        </div>
+                        <div *ngIf="movieProviders.flatrate">
+                            <label>Flatrate</label>
+                            <ul class="providers">
+                                <li *ngFor="let obj of movieProviders.flatrate"><img src={{getLogoPath(obj.logo_path)}} alt="..." class="img-thumbnail"></li>
+                            </ul>
+                        </div>
+                        <p class="card-text">View More Info <a href={{movieProviders.link}} target="_blank">Here</a></p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+              </div>
+            </div>
+        </div>
+    </div>
 </div>

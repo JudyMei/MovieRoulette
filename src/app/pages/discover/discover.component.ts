@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { IMovie } from 'src/app/interfaces/movie';
+import { GenresService } from 'src/app/services/genres.service';
+import { MovieProvidersService } from 'src/app/services/movie-providers.service';
 import { MoviesService } from 'src/app/services/movies.service';
+import { WatchProvidersService } from 'src/app/services/watch-providers.service';
 
 @Component({
   selector: 'app-discover',
@@ -12,12 +15,19 @@ export class DiscoverComponent implements OnInit {
   movieList!:IMovie[];
   resultPageNum!:number;
   movieItem!:IMovie;
+  imgPath = "http://image.tmdb.org/t/p/w342";
+  logoPath = "http://image.tmdb.org/t/p/w45";
   showMovie:boolean = false;
+  genres = new Map();
+  providers = new Map();
+  movieProviders:any;
 
-  constructor(private moviesService:MoviesService) { }
+  constructor(private moviesService:MoviesService, private genreService:GenresService, private watchProviderService:WatchProvidersService, private movieProviderService:MovieProvidersService) { }
 
   ngOnInit(): void {
     this.showMovie = false;
+    this.genres = this.genreService.getGenres();
+    this.providers = this.watchProviderService.getWatchProviders();
   }
 
   getPageNumber(){
@@ -37,7 +47,6 @@ export class DiscoverComponent implements OnInit {
         console.log(this.movieList);
       })
     }, 1000);
-    
   }
 
   getRandomInt(min: number, max: number) : number {
@@ -53,8 +62,27 @@ export class DiscoverComponent implements OnInit {
       this.movieItem = this.movieList[index];
       console.log(this.movieList[index])
       this.showMovie = true;
+      this.getMovieProviders();
     }, 2000);
+    // setTimeout(() => {
+    //   this.getMovieProviders();
+    // },2500)
     
+  }
+
+  getPosterPath(){
+    return this.imgPath+this.movieItem.poster_path;
+  }
+
+  getLogoPath(path:string){
+    return this.logoPath+path;
+  }
+  
+  getMovieProviders(){
+    this.movieProviderService.getMovieProviders(this.movieItem.id).subscribe((response : any) => {
+      //provider region is defaulted to US for now
+      this.movieProviders = response.results.US;
+    })
   }
 
 }

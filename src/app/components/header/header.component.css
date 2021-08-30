@@ -1,0 +1,12 @@
+.navbar{
+    padding-top:5px;
+    padding-bottom: 5px;
+}
+
+span{
+    color: white;
+}
+
+.navbar-nav > li > a:hover > span{
+    color:#FFCCD6;
+}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { IMovie } from 'src/app/interfaces/movie';
 import { GenresService } from 'src/app/services/genres.service';
 import { MovieProvidersService } from 'src/app/services/movie-providers.service';
@@ -83,6 +84,30 @@ export class DiscoverComponent implements OnInit {
       //provider region is defaulted to US for now
       this.movieProviders = response.results.US;
     })
+  }
+
+  close(){
+    this.showMovie = !this.showMovie;
+  }
+
+  // Form Methods -------------------------------
+  paramsForm = new FormGroup({
+    genre: new FormControl('',[])
+  })
+
+  get genre(){
+    return this.paramsForm.get("genre");
+  }
+
+  // Choose genre using select dropdown
+  changeGenre(e : any) {
+    this.genre?.setValue(e.target.value, {
+      onlySelf: true
+    })
+  }
+
+  generate(){
+    console.log(JSON.stringify(this.paramsForm.value))
   }
 
 }

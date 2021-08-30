@@ -1,6 +1,3 @@
-.genreList{
-    padding-left: 5px;
-}
 ul.providers li{
     display: inline;
     margin-right:10px;
@@ -12,4 +9,14 @@ ul.providers{
 
 .poster{
     height: 100%;
+    width: auto;
+}
+
+.btn-close{
+    position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  line-height: 14px;
+  min-width: auto;
 }

@@ -1,39 +1,70 @@
 <div class="container">
-    <button type="button" class="btn btn-danger" (click)="getMovie()"> Click Here!</button>
+    <!-- Search Parms Form -->
+    <form [formGroup]="paramsForm" (ngSubmit)="getMovie()" novalidate> 
+        <div class="form-group row">
+            <!-- <label for="email" class="col-md-4 col-form-label text-md-right">Genres</label> -->
+            <div class="col-md-6">
+                <select class="custom-select" (change)="changeGenre($event)" formControlName="genre">
+                    <option value="">Choose a Genre</option>
+                    <option *ngFor="let item of genres | keyvalue" [ngValue]="item.key">{{item.value}}</option>
+                </select>
+            </div>
+        </div>
+        <!-- <button type="submit" class="btn btn-danger" (click)="getMovie()"> Generate</button> -->
+        <button type="submit" class="btn btn-danger" (click)="generate()"> Generate</button>
+    </form>
+
+    <!-- Randomized Movie -->
     <div *ngIf="showMovie">
         <div class="card mb-3">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img src={{getPosterPath()}} class="img-fluid rounded-start poster" alt="...">
+                    <img src={{getPosterPath()}} class="img-fluid rounded poster" alt="...">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h5 class="card-title">{{movieItem.title}}</h5>
+                        <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+                        <h4 class="card-title">{{movieItem.title}}</h4>
                         <p class="card-text">{{movieItem.overview}}</p>
-                        <p class="card-text">Genres</p>
+                        <p class="card-text"><span style="font-weight: bold;">Release Date:</span> {{movieItem.release_date | date: 'mediumDate'}}</p>
+                        <p class="card-text" style="font-weight: bold;">Genres</p>
                         <ul>
                             <li *ngFor="let item of movieItem.genre_ids">{{genres.get(item)}}</li>
                         </ul>
-                        <p class="card-text">Where To Watch</p>
-                        <div *ngIf="movieProviders.rent">
-                            <label>Rent</label>
-                            <ul class="providers">
-                                <li *ngFor="let obj of movieProviders.rent"> <img src={{getLogoPath(obj.logo_path)}} alt="..." class="img-thumbnail"> </li>
-                            </ul>
+                        <p class="card-text" style="font-weight: bold;">Where To Watch</p>
+                        <div *ngIf="movieProviders" class="providerGroup">
+                            <div *ngIf="movieProviders.free">
+                                <label>Free</label>
+                                <ul class="providers">
+                                    <li *ngFor="let obj of movieProviders.free"><img src={{getLogoPath(obj.logo_path)}} alt={{obj.provider_name}} title={{obj.provider_name}} class="rounded"></li>
+                                </ul>
+                            </div>
+                            <div *ngIf="movieProviders.flatrate">
+                                <label>Stream</label>
+                                <ul class="providers">
+                                    <li *ngFor="let obj of movieProviders.flatrate"><img src={{getLogoPath(obj.logo_path)}} alt={{obj.provider_name}} title={{obj.provider_name}} class="rounded"></li>
+                                </ul>
+                            </div>
+                            <div *ngIf="movieProviders.ads">
+                                <label>Ads</label>
+                                <ul class="providers">
+                                    <li *ngFor="let obj of movieProviders.ads"><img src={{getLogoPath(obj.logo_path)}} alt={{obj.provider_name}} title={{obj.provider_name}} class="rounded"></li>
+                                </ul>
+                            </div>
+                            <div *ngIf="movieProviders.rent">
+                                <label>Rent</label>
+                                <ul class="providers">
+                                    <li *ngFor="let obj of movieProviders.rent"> <img src={{getLogoPath(obj.logo_path)}} alt={{obj.provider_name}} title={{obj.provider_name}} class="rounded"> </li>                                
+                                </ul>
+                            </div>
+                            <div *ngIf="movieProviders.buy">
+                                <label>Buy</label>
+                                <ul class="providers">
+                                    <li *ngFor="let obj of movieProviders.buy"> <img src={{getLogoPath(obj.logo_path)}} alt={{obj.provider_name}} title={{obj.provider_name}} class="rounded"> </li>
+                                </ul>
+                            </div>
+                            <p class="card-text">View More Info <a href={{movieProviders.link}} target="_blank">Here</a></p>
                         </div>
-                        <div *ngIf="movieProviders.buy">
-                            <label>Buy</label>
-                            <ul class="providers">
-                                <li *ngFor="let obj of movieProviders.buy"> <img src={{getLogoPath(obj.logo_path)}} alt="..." class="img-thumbnail"> </li>
-                            </ul>
-                        </div>
-                        <div *ngIf="movieProviders.flatrate">
-                            <label>Flatrate</label>
-                            <ul class="providers">
-                                <li *ngFor="let obj of movieProviders.flatrate"><img src={{getLogoPath(obj.logo_path)}} alt="..." class="img-thumbnail"></li>
-                            </ul>
-                        </div>
-                        <p class="card-text">View More Info <a href={{movieProviders.link}} target="_blank">Here</a></p>
                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                     </div>
               </div>

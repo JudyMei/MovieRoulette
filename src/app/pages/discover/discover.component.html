@@ -1,20 +1,56 @@
-<div class="container">
-    <!-- Search Parms Form -->
+<div class="container" style="align-items: center;">
+    <h2 style="text-align: center;"> Movie Roulette: Random Movie Generator</h2><br>
+    <!-- ##### Search Parms Form ##### -->
     <form [formGroup]="paramsForm" (ngSubmit)="getMovie()" novalidate> 
         <div class="form-group row">
             <!-- <label for="email" class="col-md-4 col-form-label text-md-right">Genres</label> -->
-            <div class="col-md-6">
-                <select class="custom-select" (change)="changeGenre($event)" formControlName="genre">
+            <div class="col-md-4">
+                <select id="inputGenre" class="custom-select form-select" (change)="changeGenre($event)" formControlName="genre">
                     <option value="">Choose a Genre</option>
+                    <option *ngFor="let item of genres | keyvalue" [ngValue]="item.key">{{item.value}}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select id="inputlanguage" class="custom-select form-select" (change)="changeLanguage($event)" formControlName="language">
+                    <option value="">Choose a Language</option>
+                    <option *ngFor="let item of genres | keyvalue" [ngValue]="item.key">{{item.value}}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select id="inputlanguage" class="custom-select form-select" (change)="changeLanguage($event)" formControlName="language">
+                    <option value="">Rating greater than</option>
+                    <option *ngFor="let item of genres | keyvalue" [ngValue]="item.key">{{item.value}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <!-- <label for="email" class="col-md-4 col-form-label text-md-right">Genres</label> -->
+            <div class="col-md-4">
+                <select id="inputGenre" class="custom-select form-select" (change)="changeGenre($event)" formControlName="genre">
+                    <option value="">Available On</option>
+                    <option *ngFor="let item of genres | keyvalue" [ngValue]="item.key">{{item.value}}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select id="inputlanguage" class="custom-select form-select" (change)="changeLanguage($event)" formControlName="language">
+                    <option value="">Watch Region</option>
+                    <option *ngFor="let item of genres | keyvalue" [ngValue]="item.key">{{item.value}}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select id="inputlanguage" class="custom-select form-select" (change)="changeLanguage($event)" formControlName="language">
+                    <option value="">Year Released</option>
                     <option *ngFor="let item of genres | keyvalue" [ngValue]="item.key">{{item.value}}</option>
                 </select>
             </div>
         </div>
         <!-- <button type="submit" class="btn btn-danger" (click)="getMovie()"> Generate</button> -->
-        <button type="submit" class="btn btn-danger" (click)="generate()"> Generate</button>
+        <div class="text-center">
+            <button type="submit" class="btn btn-danger" (click)="generate()"> Generate</button>
+        </div>
     </form>
 
-    <!-- Randomized Movie -->
+    <!-- ##### Randomized Movie Card ##### -->
     <div *ngIf="showMovie">
         <div class="card mb-3">
             <div class="row g-0">
@@ -23,7 +59,7 @@
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+                        <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="close()"></button>
                         <h4 class="card-title">{{movieItem.title}}</h4>
                         <p class="card-text">{{movieItem.overview}}</p>
                         <p class="card-text"><span style="font-weight: bold;">Release Date:</span> {{movieItem.release_date | date: 'mediumDate'}}</p>
@@ -63,11 +99,11 @@
                                     <li *ngFor="let obj of movieProviders.buy"> <img src={{getLogoPath(obj.logo_path)}} alt={{obj.provider_name}} title={{obj.provider_name}} class="rounded"> </li>
                                 </ul>
                             </div>
-                            <p class="card-text">View More Info <a href={{movieProviders.link}} target="_blank">Here</a></p>
+                            <p class="card-text"><small> View More Info at <a class="moreinfo" href={{movieProviders.link}} target="_blank">TMDB</a></small></p>
                         </div>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
                     </div>
-              </div>
+                </div>
             </div>
         </div>
     </div>

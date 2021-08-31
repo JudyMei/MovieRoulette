@@ -32,7 +32,7 @@ export class DiscoverComponent implements OnInit {
   }
 
   getPageNumber(){
-    this.moviesService.getMovies().subscribe((response : any) => {
+    this.moviesService.getMovies(this.paramsForm.value).subscribe((response : any) => {
       const numOfPages = response.total_pages;
       this.resultPageNum = this.getRandomInt(1, numOfPages + 1);
       // console.log(this.resultPageNum);
@@ -42,7 +42,7 @@ export class DiscoverComponent implements OnInit {
   getMovies(){
     this.getPageNumber();
     setTimeout(() => {
-      this.moviesService.getMoviesWithPageNum(this.resultPageNum).subscribe((response : any) => {
+      this.moviesService.getMoviesWithPageNum(this.paramsForm.value, this.resultPageNum).subscribe((response : any) => {
         // console.log(this.resultPageNum);
         this.movieList = response.results
         console.log(this.movieList);
@@ -92,16 +92,27 @@ export class DiscoverComponent implements OnInit {
 
   // Form Methods -------------------------------
   paramsForm = new FormGroup({
-    genre: new FormControl('',[])
+    genre: new FormControl('',[]),
+    language: new FormControl('',[])
   })
 
   get genre(){
     return this.paramsForm.get("genre");
   }
+  
+  get language(){
+    return this.paramsForm.get("language");
+  }
 
   // Choose genre using select dropdown
   changeGenre(e : any) {
     this.genre?.setValue(e.target.value, {
+      onlySelf: true
+    })
+  }
+
+  changeLanguage(e : any) {
+    this.language?.setValue(e.target.value, {
       onlySelf: true
     })
   }

@@ -11,3 +11,7 @@ body {
 	color: #000000;
 	background-color: pink;
 }
+
+app-header{
+    margin-bottom: 5px;
+}

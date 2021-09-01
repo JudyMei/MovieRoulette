@@ -10,3 +10,16 @@ span{
 .navbar-nav > li > a:hover > span{
     color:#FFCCD6;
 }
+
+.navbar-nav > li > a.active:hover > span{
+    color: black;
+}
+
+.active{
+    background-color: #FFCCD6;
+    border-radius: 5px;
+}
+
+.active > span{
+    color: black;
+}

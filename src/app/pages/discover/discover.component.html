@@ -5,44 +5,44 @@
         <div class="form-group row">
             <!-- <label for="email" class="col-md-4 col-form-label text-md-right">Genres</label> -->
             <div class="col-md-4">
-                <select id="inputGenre" class="custom-select form-select" (change)="changeGenre($event)" formControlName="genre">
+                <select id="inputGenre" class="custom-select form-select" (change)="changeGenre()" formControlName="genre">
                     <option value="">Choose a Genre</option>
-                    <option *ngFor="let item of genres | keyvalue" [ngValue]="item.key">{{item.value}}</option>
+                    <option *ngFor="let g of genres | keyvalue" [ngValue]="g.key">{{g.value}}</option>
                 </select>
             </div>
             <div class="col-md-4">
-                <select id="inputlanguage" class="custom-select form-select" (change)="changeLanguage($event)" formControlName="language">
+                <select id="inputlanguage" class="custom-select form-select" (change)="changeLanguage()" formControlName="language">
                     <option value="">Choose a Language</option>
-                    <option *ngFor="let item of genres | keyvalue" [ngValue]="item.key">{{item.value}}</option>
+                    <option *ngFor="let l of languages | keyvalue" [ngValue]="l.value">{{l.key}}</option>
                 </select>
             </div>
             <div class="col-md-4">
-                <select id="inputlanguage" class="custom-select form-select" (change)="changeLanguage($event)" formControlName="language">
+                <select id="inputRating" class="custom-select form-select" (change)="changeRating()" formControlName="rating">
                     <option value="">Rating greater than</option>
-                    <option *ngFor="let item of genres | keyvalue" [ngValue]="item.key">{{item.value}}</option>
+                    <option *ngFor="let r of ratings" [ngValue]="r">{{r}}</option>
                 </select>
             </div>
         </div>
         <div class="form-group row">
             <!-- <label for="email" class="col-md-4 col-form-label text-md-right">Genres</label> -->
             <div class="col-md-4">
-                <select id="inputGenre" class="custom-select form-select" (change)="changeGenre($event)" formControlName="genre">
+                <select id="inputprovider" class="custom-select form-select" (change)="changeAvailable()" formControlName="available">
                     <option value="">Available On</option>
-                    <option *ngFor="let item of genres | keyvalue" [ngValue]="item.key">{{item.value}}</option>
+                    <option *ngFor="let p of providers | keyvalue" [ngValue]="p.key">{{p.value.provider_name}}</option>
                 </select>
             </div>
             <div class="col-md-4">
-                <select id="inputlanguage" class="custom-select form-select" (change)="changeLanguage($event)" formControlName="language">
+                <select id="inputregion" class="custom-select form-select" (change)="changeRegion()" formControlName="region">
                     <option value="">Watch Region</option>
-                    <option *ngFor="let item of genres | keyvalue" [ngValue]="item.key">{{item.value}}</option>
+                    <option *ngFor="let reg of regions | keyvalue" [ngValue]="reg.value">{{reg.key}}</option>
                 </select>
             </div>
-            <div class="col-md-4">
+            <!-- <div class="col-md-4">
                 <select id="inputlanguage" class="custom-select form-select" (change)="changeLanguage($event)" formControlName="language">
                     <option value="">Year Released</option>
                     <option *ngFor="let item of genres | keyvalue" [ngValue]="item.key">{{item.value}}</option>
                 </select>
-            </div>
+            </div> -->
         </div>
         <!-- <button type="submit" class="btn btn-danger" (click)="getMovie()"> Generate</button> -->
         <div class="text-center">
@@ -52,7 +52,7 @@
 
     <!-- ##### Randomized Movie Card ##### -->
     <div *ngIf="showMovie">
-        <div class="card mb-3">
+        <div *ngIf="movieItem" class="card mb-3">
             <div class="row g-0">
                 <div class="col-md-4">
                     <img src={{getPosterPath()}} class="img-fluid rounded poster" alt="...">
@@ -105,6 +105,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div *ngIf="!movieItem">
+            <p class="error">No movies were found with those parameters. Please reduce preciseness of filers</p>
         </div>
     </div>
 </div>

@@ -22,6 +22,33 @@ export class DiscoverComponent implements OnInit {
   genres = new Map();
   providers = new Map();
   movieProviders:any;
+  languages = new Map<string, string>([
+    ["Arabic", "ar"],
+    ["Chinese", "zh"],
+    ["English", "en"],
+    ["French", "fr"],
+    ["German", "de"],
+    ["Hindi", "hi"],
+    ["Italian", "it"],
+    ["Japanese", "ja"],
+    ["Korean", "ko"],
+    ["Russian", "ru"],
+    ["Spanish", "es"],
+    ["Vietnamese", "vi"]
+  ]);
+  ratings = [1,2,3,4,5,6,7,8];
+  regions = new Map<string, string>([
+    ["United States", "US"],
+    ["United Kingdom", "GB"],
+    ["Canada", "CA"],
+    ["Germany", "DE"],
+    ["China", "CN"],
+    ["India", "IN"],
+    ["France", "FR"],
+    ["Japan", "JP"],
+    ["Korea", "KR"],
+    ["Vietnam", "VN"]
+  ])
 
   constructor(private moviesService:MoviesService, private genreService:GenresService, private watchProviderService:WatchProvidersService, private movieProviderService:MovieProvidersService) { }
 
@@ -80,10 +107,13 @@ export class DiscoverComponent implements OnInit {
   }
   
   getMovieProviders(){
-    this.movieProviderService.getMovieProviders(this.movieItem.id).subscribe((response : any) => {
-      //provider region is defaulted to US for now
-      this.movieProviders = response.results.US;
-    })
+    if(this.movieItem){
+      this.movieProviderService.getMovieProviders(this.movieItem.id).subscribe((response : any) => {
+        //provider region is defaulted to US for now
+        this.movieProviders = response.results.US;
+      })
+    }
+    
   }
 
   close(){
@@ -93,7 +123,10 @@ export class DiscoverComponent implements OnInit {
   // Form Methods -------------------------------
   paramsForm = new FormGroup({
     genre: new FormControl('',[]),
-    language: new FormControl('',[])
+    language: new FormControl('',[]),
+    rating: new FormControl('',[]),
+    available: new FormControl('',[]),
+    region: new FormControl('',[])
   })
 
   get genre(){
@@ -104,17 +137,38 @@ export class DiscoverComponent implements OnInit {
     return this.paramsForm.get("language");
   }
 
-  // Choose genre using select dropdown
-  changeGenre(e : any) {
-    this.genre?.setValue(e.target.value, {
-      onlySelf: true
-    })
+  get rating(){
+    return this.paramsForm.get("rating");
   }
 
-  changeLanguage(e : any) {
-    this.language?.setValue(e.target.value, {
-      onlySelf: true
-    })
+  get available(){
+    return this.paramsForm.get("available");
+  }
+
+  get region(){
+    return this.paramsForm.get("region")
+  }
+
+  // Choose genre using select dropdown
+  changeGenre() {
+    // this.genre?.setValue(e.target.value)
+    let genre = this.genre?.value;
+  }
+
+  changeLanguage() {
+    let language = this.language?.value;
+  }
+
+  changeRating() {
+    let rating = this.rating?.value;
+  }
+
+  changeAvailable() {
+    let available = this.available?.value;
+  }
+
+  changeRegion() {
+    let region = this.region?.value;
   }
 
   generate(){

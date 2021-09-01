@@ -14,7 +14,7 @@ export class WatchProvidersService {
   }
 
   getWatchProviders(){
-    let params = {language : 'en-US', watch_region: 'US'};
+    let params = {language : 'en-US'};
 
     this.http.get(this.url, {
       params: params

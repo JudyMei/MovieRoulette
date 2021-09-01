@@ -16,11 +16,26 @@ export class MoviesService {
   getMovies(searchInfo : any){
     let params = new HttpParams()
     params = params.set('api_key', '6dd8a853c3a84bf12fd996d2057a4e95');
-    params = params.set('with_original_language', 'en');
+  
     if(searchInfo.genre !== ""){
       params = params.set('with_genres', searchInfo.genre);
     }
-    // let params = {api_key : '6dd8a853c3a84bf12fd996d2057a4e95', with_original_language : 'en'};
+    if(searchInfo.language !== ""){
+      params = params.set('with_original_language', searchInfo.language);
+    } else{
+      params = params.set('with_original_language', 'en');
+    }
+    if(searchInfo.rating !== ""){
+      params = params.set('vote_average.gte', searchInfo.rating);
+    }
+    if(searchInfo.available !== ""){
+      params = params.set('with_watch_providers', searchInfo.available);
+    }
+    if(searchInfo.region !== ""){
+      params = params.set('watch_region', searchInfo.region);
+    } else{
+      params = params.set('watch_region', 'US');
+    }
 
     return this.http.get(this.url, {
       params: params
@@ -28,13 +43,28 @@ export class MoviesService {
   }
 
   getMoviesWithPageNum(searchInfo : any, pageNum : number){
-    // let params = {api_key : '6dd8a853c3a84bf12fd996d2057a4e95', with_original_language : 'en', page: pageNum};
     let params = new HttpParams()
     params = params.set('api_key', '6dd8a853c3a84bf12fd996d2057a4e95');
-    params = params.set('with_original_language', 'en');
     params = params.set('page', pageNum);
+
     if(searchInfo.genre !== ""){
       params = params.set('with_genres', searchInfo.genre);
+    }
+    if(searchInfo.language !== ""){
+      params = params.set('with_original_language', searchInfo.language);
+    } else{
+      params = params.set('with_original_language', 'en');
+    }
+    if(searchInfo.rating !== ""){
+      params = params.set('vote_average.gte', searchInfo.rating);
+    }
+    if(searchInfo.available !== ""){
+      params = params.set('with_watch_providers', searchInfo.available);
+    }
+    if(searchInfo.region !== ""){
+      params = params.set('watch_region', searchInfo.region);
+    } else{
+      params = params.set('watch_region', 'US');
     }
 
     return this.http.get(this.url, {

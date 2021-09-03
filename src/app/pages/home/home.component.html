@@ -1,0 +1,35 @@
+<div class="container">
+    <h2 class="heading"> Welcome to Movie Roulette!</h2><br>
+    <h4> Trending This Week</h4>
+    <div class="d-flex flex-row flex-nowrap overflow-auto pb-4 pt-3">
+        <div *ngFor="let item of trendingList" class="col card-block mx-2" style="min-width: 185px;" (click)="movieInfo(item)">
+            <img src={{getPosterPath(item)}} class="img-fluid rounded poster" alt={{item.title}}>
+            <p class="card-title">{{item.title}}</p>
+            <p class="subtitle">{{item.release_date | date: 'mediumDate'}}</p>
+        </div>
+    </div>
+</div><br>
+
+<div class="container">
+    <div *ngIf="showMovie">
+        <div *ngIf="movieItem" class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-3">
+                    <img src={{getCardImgPath(movieItem)}} class="img-fluid rounded poster" alt="{{movieItem.title}}">
+                </div>
+                <div class="col-md-9">
+                    <div class="card-body">
+                        <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="toggleCard()"></button>
+                        <h4 class="card-title">{{movieItem.title}}</h4>
+                        <p class="card-text">{{movieItem.overview}}</p>
+                        <p class="card-text" style="font-weight: bold;">Rating: {{movieItem.vote_average}}</p>
+                        <p class="card-text" style="font-weight: bold;">Genres</p>
+                        <ul>
+                            <li *ngFor="let item of movieItem.genre_ids">{{genres.get(item)}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

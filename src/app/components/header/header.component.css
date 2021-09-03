@@ -15,11 +15,11 @@ span{
     color: black;
 }
 
-.active{
+li > a.active{
     background-color: #FFCCD6;
     border-radius: 5px;
 }
 
-.active > span{
+li > a.active > span{
     color: black;
 }

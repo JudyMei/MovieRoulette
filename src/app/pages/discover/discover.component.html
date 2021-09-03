@@ -1,5 +1,7 @@
 <div class="container" style="align-items: center;">
-    <h2 style="text-align: center;"> Movie Roulette: Random Movie Generator</h2><br>
+    <h2 class="description"> Movie Roulette: Random Movie Generator</h2>
+    <p class="description">To generate a random movie simply change the search parameters to your desired taste in movie and hit generate. 
+        Note: Language is defaulted to English and Watch Region is defaulted to the United States unless otherwise stated.</p>
     <!-- ##### Search Parms Form ##### -->
     <form [formGroup]="paramsForm" (ngSubmit)="getMovie()" novalidate> 
         <div class="form-group row">
@@ -55,7 +57,7 @@
         <div *ngIf="movieItem" class="card mb-3">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img src={{getPosterPath()}} class="img-fluid rounded poster" alt="...">
+                    <img src={{getPosterPath()}} class="img-fluid rounded poster" alt={{movieItem.title}}>
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -63,6 +65,7 @@
                         <h4 class="card-title">{{movieItem.title}}</h4>
                         <p class="card-text">{{movieItem.overview}}</p>
                         <p class="card-text"><span style="font-weight: bold;">Release Date:</span> {{movieItem.release_date | date: 'mediumDate'}}</p>
+                        <p class="card-text"><span style="font-weight: bold;">Rating:</span> {{movieItem.vote_average}}</p>
                         <p class="card-text" style="font-weight: bold;">Genres</p>
                         <ul>
                             <li *ngFor="let item of movieItem.genre_ids">{{genres.get(item)}}</li>

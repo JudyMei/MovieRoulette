@@ -74,3 +74,12 @@ form{
     text-align: center;
 }
 
+h2{
+    color: #FFCCD6;
+}
+
+.description{
+    text-align: center;
+    margin-bottom: 15px;
+}
+

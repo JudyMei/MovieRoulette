@@ -6,13 +6,19 @@ import { Injectable } from '@angular/core';
 })
 export class TrendingService {
 
-  url:any;
+  
 
   constructor(private http:HttpClient) { 
-    this.url = "https://api.themoviedb.org/3/trending/movie/week?api_key=6dd8a853c3a84bf12fd996d2057a4e95";
+    // this.url = "https://api.themoviedb.org/3/trending/movie/week?api_key=6dd8a853c3a84bf12fd996d2057a4e95";
   }
 
   getTrending(){
-    return this.http.get(this.url);
+    const url = "https://api.themoviedb.org/3/trending/movie/week?api_key=6dd8a853c3a84bf12fd996d2057a4e95";
+    return this.http.get(url);
+  }
+
+  getTrendingToday(){
+    const url = "https://api.themoviedb.org/3/trending/movie/day?api_key=6dd8a853c3a84bf12fd996d2057a4e95";
+    return this.http.get(url);
   }
 }

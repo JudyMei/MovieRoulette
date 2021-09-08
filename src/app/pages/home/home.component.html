@@ -1,6 +1,17 @@
 <div class="container">
     <h2 class="heading"> Welcome to Movie Roulette!</h2><br>
-    <h4> Trending This Week</h4>
+    <div class="column-header">
+        <!-- <span>{{trendingForm.value.switch}}</span> -->
+        <form [formGroup]="trendingForm" >
+            <h4 class="form-title">Trending</h4>
+            <div class="switch-field" >
+                <input formControlName="switch" type="radio" id="radio-one" name="switch" value="Today" checked (change)="showTrending()"/>
+                <label for="radio-one">Today</label>
+                <input formControlName="switch" type="radio" id="radio-two" name="switch" value="Week" (change)="showTrending()"/>
+                <label for="radio-two">This Week</label>
+            </div>
+        </form>
+    </div>
     <div class="d-flex flex-row flex-nowrap overflow-auto pb-4 pt-3">
         <div *ngFor="let item of trendingList" class="col card-block mx-2" style="min-width: 185px;" (click)="movieInfo(item)">
             <img src={{getPosterPath(item)}} class="img-fluid rounded poster" alt={{item.title}}>

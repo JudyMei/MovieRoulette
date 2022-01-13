@@ -61,8 +61,10 @@ export class DiscoverComponent implements OnInit {
   getPageNumber(){
     this.moviesService.getMovies(this.paramsForm.value).subscribe((response : any) => {
       const numOfPages = response.total_pages;
-      this.resultPageNum = this.getRandomInt(1, numOfPages + 1);
-      // console.log(this.resultPageNum);
+      // console.log("numOfPages" + numOfPages)
+      this.resultPageNum = this.getRandomInt(1, 500);
+      // this.resultPageNum = 1;
+      console.log(this.resultPageNum);
     })
   }
 
@@ -70,7 +72,7 @@ export class DiscoverComponent implements OnInit {
     this.getPageNumber();
     setTimeout(() => {
       this.moviesService.getMoviesWithPageNum(this.paramsForm.value, this.resultPageNum).subscribe((response : any) => {
-        // console.log(this.resultPageNum);
+        console.log(this.resultPageNum);
         this.movieList = response.results
         console.log(this.movieList);
       })

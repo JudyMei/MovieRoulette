@@ -64,7 +64,7 @@ export class DiscoverComponent implements OnInit {
       // console.log("numOfPages" + numOfPages)
       this.resultPageNum = this.getRandomInt(1, 500);
       // this.resultPageNum = 1;
-      console.log(this.resultPageNum);
+      console.log("Page number" + this.resultPageNum);
     })
   }
 
